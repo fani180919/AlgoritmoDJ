@@ -1,0 +1,83 @@
+//Erick y Fani
+// Programa en Java para el algoritmo de Dijkstra que encuentra
+// el camino mas corto para un unico origen
+// Se emplea una matrix de adjacencia para representar el grafo
+
+ clase  pública Dijkstra {
+
+ 
+ 
+// Numero de vertices en el grafo
+ int final  estático V = 9 ;    
+ 
+
+// Funcion utilitaria para encontrar el vertice con la distancia minima,
+// a partir del conjunto de los vertices todavia no incluidos en el
+// camino mas corto
+private  static  int  minDistance ( int [] dist , boolean [] verticeYaProcesado )
+{
+   // Inicializar el valor mínimo
+   int min =  Entero . MAX_VALUE ; int min_index = 0 ;
+ 
+   para ( int v =  0 ; v <  V ; v ++ )
+     if (verticeYaProcesado [v] ==  false  && dist [v] <= min) {
+         min = dist [v];
+         min_index = v;
+      }
+ 
+   return min_index;
+}
+ 
+// Funcion utilitaria para imprimir el arreglo de distancias calculadas
+ printSolution vacío estático  privado ( int [] dist , int n )  
+{
+   Sistema . fuera . println ( " Distancia del vértice desde el origen \ n " );
+   para ( int i =  0 ; i <  V ; i ++ )
+      Sistema . fuera . println (i +  "  \ t \ t  "  + dist [i]);
+}
+ 
+ dijkstra vacío estático  privado ( int [] [] grafo , int src )  
+{
+     int [] dist =  nuevo  int [ V ];     
+     // dist [i] guarda la distancia mas corta desde src hasta el vertice i
+ 
+     booleano [] verticeYaProcesado =  nuevo  booleano [ V ];
+     // Este arreglo tiene true si el vertice i ya fue procesado
+ 
+     // Inicializa todas las distancias como INFINITE y stpSet [] como falso
+     para ( int i =  0 ; i <  V ; i ++ ) {
+        dist [i] =  entero . MAX_VALUE ;
+        verticeYaProcesado [i] =  falso ;
+     }
+     // La distancia del vertice origen hacia el mismo es siempre 0
+     dist [src] =  0 ;
+ 
+     // Encuentra el camino mas corto para todos los vertices
+     para ( int cuenta =  0 ; cuenta <  V - 1 ; cuenta ++ )
+     {
+
+       // Toma el vertice con la distancia minima del cojunto de vertices aun no procesados
+       // En la primera iteracion siempre se devuelve src
+       int u = minDistance (dist, verticeYaProcesado);
+ 
+       // Se marca como ya procesado
+       verticeYaProcesado [u] =  verdadero ;
+ 
+       // Actualiza el valor de dist de los vértices adyacentes del vértice elegido.
+       para ( int v =  0 ; v <  V ; v ++ )
+
+         // Se actualiza la dist [v] solo si no esta en verticeYaProcesado, hay un
+         // arco desde uavy el peso total del camino desde src hasta va traves de u es
+         // mas pequeno que el valor actual de dist [v]
+         if ( ! verticeYaProcesado [v] && grafo [u] [v] >  0  && dist [u] ! =  Entero . MAX_VALUE 
+                                       && dist [u] + grafo [u] [v] < dist [v])
+            dist [v] = dist [u] + grafo [u] [v];
+     }
+ 
+     // se imprime el arreglo con las distancias
+     printSolution (dist, V );
+}
+ 
+
+}
+}
